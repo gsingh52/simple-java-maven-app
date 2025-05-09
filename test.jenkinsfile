@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                echo "mavenbuild build"
+                //sh 'mvn -B -DskipTests clean package'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo "maventest"
+                //sh 'mvn test'
+            }
+            post {
+                always {
+                    echo "target report"
+                    //junit 'target/surefire-reports/*.xml'
+                }
+            }
+        }
+        stage('Deliver') { 
+            steps {
+                echo "deliver"
+                //sh './jenkins/scripts/deliver.sh' 
+            }
+        }
+    }
+}
